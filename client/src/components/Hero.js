@@ -13,6 +13,7 @@ const Hero = ({
   bottomDivider,
   hasBgColor,
   invertColor,
+  nhost,
   ...props
 }) => {
   const [videoModalActive, setVideomodalactive] = useState(false);
@@ -25,6 +26,12 @@ const Hero = ({
   const closeModal = (e) => {
     e.preventDefault();
     setVideomodalactive(false);
+  };
+
+  const handleLogin = () => {
+    nhost.auth.signIn({
+      provider: "google",
+    });
   };
 
   const outerClasses = classNames(
@@ -59,13 +66,17 @@ const Hero = ({
               </p>
               <div className="reveal-from-bottom" data-reveal-delay="600">
                 <div className="button-group">
-                  <Button variant="contained" size="large">
+                  <Button
+                    variant="contained"
+                    onClick={handleLogin}
+                    size="large"
+                  >
                     Get started now
                   </Button>
                   <Button
                     variant="contained"
                     component="a"
-                    href="https://github.com/aashishpanthi/lootle"
+                    href="https://github.com/aashishpanthi/lootle.live"
                     size="large"
                     color="success"
                   >
@@ -86,7 +97,11 @@ const Hero = ({
               aria-controls="video-modal"
               onClick={openModal}
             >
-              <Image className="has-shadow" src="" alt="Hero" />
+              <Image
+                className="has-shadow"
+                src="/static/video-placeholder.jpg"
+                alt="Hero"
+              />
             </a>
           </div>
           <Modal

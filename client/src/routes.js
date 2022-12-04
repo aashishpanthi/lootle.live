@@ -11,17 +11,17 @@ import DashboardApp from "./pages/DashboardApp";
 
 // ----------------------------------------------------------------------
 
-export default function Router() {
+export default function Router({ nhost }) {
   return useRoutes([
     {
       path: "/",
-      element: <DefaultLayout />,
-      children: [{ path: "", element: <Home /> }],
+      element: <DefaultLayout nhost={nhost} />,
+      children: [{ path: "", element: <Home nhost={nhost} /> }],
     },
     {
       path: "/app",
-      element: <NavbarOnlyLayout />,
-      children: [{ path: "dashboard", element: <DashboardApp /> }],
+      element: <NavbarOnlyLayout nhost={nhost} />,
+      children: [{ path: "", element: <DashboardApp /> }],
     },
     { path: "*", element: <NotFound /> },
   ]);

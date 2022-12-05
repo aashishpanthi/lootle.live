@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import Page from "../components/Page";
 import { Container, IconButton, Snackbar } from "@mui/material";
+import AddNewTracker from "../components/AddNewTracker";
 import AllTracks from "../components/AllTracks";
 import "../components/styles/dashboardapp.css";
 import CloseIcon from "@mui/icons-material/Close";
@@ -50,6 +51,10 @@ const App = () => {
   return (
     <Page title="App">
       <Container>
+        <AddNewTracker
+          toast={setToast}
+          className={items.length === 0 && `center`}
+        />
         {items.length !== 0 && (
           <AllTracks items={items} setItems={setItems} toast={setToast} />
         )}

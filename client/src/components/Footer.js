@@ -72,8 +72,7 @@ const Footer = () => {
         </nav>
         <div className="footer-copyright">
           Made by <a href="https://aashishpanthi.info.np">Aashish Panthi</a>.
-          Thanks to <a href="https://hashnode.com">Hashnode</a> and{" "}
-          <a href="https://linode.com">Linode</a>.
+          Copyright © 2022
         </div>
       </div>
     </footer>

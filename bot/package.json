@@ -1,0 +1,16 @@
+{
+  "name": "lootle-bot",
+  "version": "1.0.0",
+  "description": "This is a bot that scrapes price from the e-commerce site.",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Aashish Panthi",
+  "license": "MIT",
+  "dependencies": {
+    "mongoose": "^6.8.0",
+    "dotenv": "^16.0.1"
+  }
+}

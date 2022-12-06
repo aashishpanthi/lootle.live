@@ -1,4 +1,4 @@
-const EmailTemplate = (name, link, currentPrice, demandPrice, image) => {
+const EmailTemplate = (name, link, currentPrice, demandPrice, image, type) => {
   return `
     <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
     <html xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office" style="width:100%;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;padding:0;Margin:0">
@@ -91,7 +91,7 @@ const EmailTemplate = (name, link, currentPrice, demandPrice, image) => {
                     <td class="es-m-p0r" valign="top" align="center" style="padding:0;Margin:0;width:600px">
                     <table width="100%" cellspacing="0" cellpadding="0" role="presentation" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
                         <tr style="border-collapse:collapse">
-                        <td align="center" style="padding:0;Margin:0"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:'Open Sans', sans-serif;line-height:21px;color:#BCBDBD;font-size:14px">Your can buy the product now</p></td>
+                        <td align="center" style="padding:0;Margin:0"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:'Open Sans', sans-serif;line-height:21px;color:#BCBDBD;font-size:14px">Your can buy the ${type} now</p></td>
                         </tr>
                     </table></td>
                     </tr>
@@ -105,7 +105,11 @@ const EmailTemplate = (name, link, currentPrice, demandPrice, image) => {
                     <td class="es-m-p0r es-m-p20b" valign="top" align="center" style="padding:0;Margin:0;width:380px">
                     <table width="100%" cellspacing="0" cellpadding="0" role="presentation" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
                         <tr style="border-collapse:collapse">
-                        <td align="center" style="padding:0;Margin:0;font-size:0"><a target="_blank" href="${link}" style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color:#EF0D33;font-size:14px"><img class="adapt-img" src="${image}" alt style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic" width="380" height="253"></a></td>
+                        <td align="center" style="padding:0;Margin:0;font-size:0"><a target="_blank" href="${link}" style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color:#EF0D33;font-size:14px"><img class="adapt-img" src="${
+    image
+      ? image
+      : `https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=720&q=80`
+  }" alt style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic" width="380" height="253"></a></td>
                         </tr>
                     </table></td>
                     </tr>
@@ -118,7 +122,7 @@ const EmailTemplate = (name, link, currentPrice, demandPrice, image) => {
                         <td align="left" style="padding:0;Margin:0;padding-top:15px;padding-left:15px;padding-right:15px"><h3 style="Margin:0;line-height:17px;mso-line-height-rule:exactly;font-family:Oswald, sans-serif;font-size:14px;font-style:normal;font-weight:bold;color:#ef0d33;letter-spacing:0px">Hurry Up</h3></td>
                         </tr>
                         <tr style="border-collapse:collapse">
-                        <td align="left" style="padding:0;Margin:0;padding-left:15px;padding-right:15px"><h1 style="Margin:0;line-height:34px;mso-line-height-rule:exactly;font-family:Oswald, sans-serif;font-size:28px;font-style:normal;font-weight:bold;color:#ffffff">Product in price range</h1></td>
+                        <td align="left" style="padding:0;Margin:0;padding-left:15px;padding-right:15px"><h1 style="Margin:0;line-height:34px;mso-line-height-rule:exactly;font-family:Oswald, sans-serif;font-size:28px;font-style:normal;font-weight:bold;color:#ffffff;text-transform: capitalize">${type} in price range</h1></td>
                         </tr>
                         <tr style="border-collapse:collapse">
                         <td align="left" class="es-m-txt-l" style="Margin:0;padding-top:15px;padding-left:15px;padding-right:15px;padding-bottom:20px"><!--[if mso]><a href="https://lootle.live" target="_blank" hidden>
@@ -202,7 +206,7 @@ const EmailTemplate = (name, link, currentPrice, demandPrice, image) => {
                         <td align="center" class="es-infoblock es-m-txt-c" style="padding:0;Margin:0;line-height:19px;font-size:16px;color:#FFFFFF"><h1 style="Margin:0;line-height:34px;mso-line-height-rule:exactly;font-family:Oswald, sans-serif;font-size:28px;font-style:normal;font-weight:bold;color:#ffffff">WHERE DOES IT COME FROM?</h1></td>
                         </tr>
                         <tr style="border-collapse:collapse">
-                        <td align="center" class="es-infoblock es-m-txt-c" style="padding:0;Margin:0;padding-top:20px;padding-bottom:20px;line-height:19px;font-size:16px;color:#FFFFFF"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:'Open Sans', sans-serif;line-height:19px;color:#FFFFFF;font-size:16px">You have used loote.live to track the price of above item. Now the product is in the range you defined. So you are receiving this email.</p></td>
+                        <td align="center" class="es-infoblock es-m-txt-c" style="padding:0;Margin:0;padding-top:20px;padding-bottom:20px;line-height:19px;font-size:16px;color:#FFFFFF"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:'Open Sans', sans-serif;line-height:19px;color:#FFFFFF;font-size:16px">You have used loote.live to track the price of above item. Now the ${type} is in the range you defined. So you are receiving this email.</p></td>
                         </tr>
                         <tr style="border-collapse:collapse">
                         <td align="center" class="es-infoblock" style="padding:0;Margin:0;line-height:19px;font-size:16px;color:#FFFFFF"><!--[if mso]><a href="https://lootle.live" target="_blank" hidden>

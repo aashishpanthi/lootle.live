@@ -29,7 +29,14 @@ const runBot = async () => {
 
         if (price < demandPrice) {
           // make a custom message
-          const message = EmailTemplate(name, url, price, demandPrice, image);
+          const message = EmailTemplate(
+            name,
+            url,
+            price,
+            demandPrice,
+            image,
+            type
+          );
 
           const titleName =
             name.length > 35 ? `${name.substring(0, 35)}...` : name;
@@ -37,7 +44,7 @@ const runBot = async () => {
           //mail the user
           sendMail(
             user,
-            `Hurry up! The ${type}'s price of ${titleName} is low`,
+            `Hurry up! The ${type} price of ${titleName} is low`,
             message
           );
 

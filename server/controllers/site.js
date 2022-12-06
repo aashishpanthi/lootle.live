@@ -46,6 +46,9 @@ export const addSite = async (req, res, next) => {
     name: Joi.string().required(),
     type: Joi.string().required(),
     priceLocation: Joi.string().required(),
+    nameLocation: Joi.string().required(),
+    imageLocation: Joi.string(),
+    currency: Joi.string().required(),
   });
 
   const { value: siteInfo, error } = schema.validate(req.body);

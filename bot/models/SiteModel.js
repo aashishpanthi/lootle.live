@@ -24,6 +24,10 @@ const SiteSchema = new mongoose.Schema({
   imageLocation: {
     type: String,
   },
+  currency: {
+    type: String,
+    required: [true, "Currency is required"],
+  },
 });
 
 const Site = mongoose.model("Site", SiteSchema);

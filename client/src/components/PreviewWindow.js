@@ -41,6 +41,7 @@ function PreviewWindow({ item }) {
               width: "75%",
               margin: "0 auto",
               display: "block",
+              marginRight: "20px",
             }}
           />
         )}
@@ -53,11 +54,20 @@ function PreviewWindow({ item }) {
             flex: 1,
           }}
         >
-          <Typography component="h1" variant="h5">
+          <Typography
+            component="h1"
+            variant="h5"
+            style={{
+              fontWeight: "bold",
+              textTransform: "capitalize",
+              marginBottom: "15px",
+              fontSize: "1.5rem",
+            }}
+          >
             {name}
           </Typography>
 
-          <Typography component="p" variant="h6" color="InfoText">
+          <Typography component="h6" variant="body1" color="InfoText">
             <strong>Your budget: </strong>${demandPrice}
           </Typography>
 
@@ -72,7 +82,7 @@ function PreviewWindow({ item }) {
           <Typography component="p" variant="body2" maxWidth="100%">
             <strong>Link: </strong>{" "}
             <a href={url} target="_blank" style={{ maxWidth: "100%" }}>
-              {url.substring(0, 100)}...
+              {url.substring(0, 80)}...
             </a>
           </Typography>
         </div>

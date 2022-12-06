@@ -6,7 +6,15 @@ function PreviewWindow({ item }) {
   const { name, site, image, url, type, history, demandPrice, informed } = item;
 
   const [priceHistory, setPriceHistory] = useState({
-    labels: history.map((h) => new Date(h.date).toString()),
+    labels: history.map((h) =>
+      new Date(h.date).toLocaleString("en-US", {
+        month: "short",
+        day: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: false,
+      })
+    ),
     datasets: [
       {
         label: "Price ($)",

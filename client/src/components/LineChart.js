@@ -36,7 +36,7 @@ const LineChart = ({ data }) => {
           },
           x: {
             ticks: {
-              callback: (value) => `${data.labels[value]}`.substring(4, 10),
+              callback: (value) => `${data.labels[value]}`,
             },
           },
         },

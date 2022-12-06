@@ -34,3 +34,18 @@ export const updateHistory = async (_id, history) => {
     return false;
   }
 };
+
+// update informed status
+export const updateStatus = async (_id, informed) => {
+  try {
+    await Track.findOneAndUpdate(
+      { _id },
+      { informed },
+      { runValidators: true, returnNewDocument: true }
+    );
+
+    return true;
+  } catch (error) {
+    return false;
+  }
+};

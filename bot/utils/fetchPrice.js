@@ -10,7 +10,7 @@ const fetchPrice = async (url, priceLocation, siteName) => {
       price = returnedPrice.substring(4);
     }
 
-    price = price.replace(/([$,₹A-Za-z])/g, "").trim(); //Removing all the special characters
+    price = price.replace(/([$,£₹A-Za-z])/g, "").trim(); //Removing all the special characters
 
     const priceArray = `${price}`.split(".");
     if (priceArray.length > 1) {

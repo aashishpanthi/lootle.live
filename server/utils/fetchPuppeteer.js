@@ -8,7 +8,7 @@ export default async function fetchPuppeteer(
 ) {
   try {
     const browser = await puppeteer.launch({
-      headless: false,
+      headless: true,
       args: ["--no-sandbox"],
       windowSize: {
         width: 1920,
@@ -28,7 +28,7 @@ export default async function fetchPuppeteer(
       priceLocation,
       imageLocation
     );
-    // await browser.close();
+    await browser.close();
     return data;
   } catch (error) {
     throw error;

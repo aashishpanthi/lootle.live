@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import { LoadingButton } from "@mui/lab";
+import { toast } from "react-hot-toast";
 
 import SearchIcon from "@mui/icons-material/SearchSharp";
 import ContentPasteSearchIcon from "@mui/icons-material/ContentPasteSearch";
@@ -18,7 +19,7 @@ import { useState } from "react";
 import PromptModal from "./PromptModal";
 import { useUserData } from "@nhost/react";
 
-const AddNewTracker = ({ className, toast }) => {
+const AddNewTracker = ({ className, toast: snackbar }) => {
   const user = useUserData();
 
   const [allSubmitLoading, setAllSubmitLoading] = useState(false);
@@ -54,10 +55,10 @@ const AddNewTracker = ({ className, toast }) => {
       //check the demand price and validate
       if (details.demandPrice < 1) {
         //Notify user about their wrong price input
-        alert("Please enter the valid amount");
+        toast.error("Please enter the valid amount");
         setAllSubmitLoading(false);
       } else if (details.demandPrice >= fetchedPrice) {
-        alert("Please enter the amount less than the current price");
+        toast.error("Please enter the amount less than the current price");
         setAllSubmitLoading(false);
       } else {
         try {
@@ -74,13 +75,13 @@ const AddNewTracker = ({ className, toast }) => {
           //save the data
           await axios.post(`/api/tracks`, dataToSave);
 
-          alert(
-            `You will be notified via email when price of your ${
+          toast.success(
+            `You will get an email when price of your ${
               details.type
             } drops below ${currency + details.demandPrice}`
           );
 
-          toast({
+          snackbar({
             open: true,
             message: "Added a new tracker",
           }); // open a toast
@@ -121,7 +122,8 @@ const AddNewTracker = ({ className, toast }) => {
 
         setIsURLSupported(true);
       } catch (error) {
-        alert(error?.response.data.message);
+        toast.error(error?.response.data.message);
+        console.log(error);
       }
 
       //turnoff button loading

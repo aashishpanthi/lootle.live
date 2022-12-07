@@ -82,7 +82,7 @@ const AllTracks = ({ items, toast, setItems }) => {
   };
 
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(8);
+  const [rowsPerPage, setRowsPerPage] = useState(12);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -176,7 +176,7 @@ const AllTracks = ({ items, toast, setItems }) => {
           </Table>
         </TableContainer>
         <TablePagination
-          rowsPerPageOptions={[8, 15, 25, 50]}
+          rowsPerPageOptions={[12, 25, 50]}
           component="div"
           count={rows.length}
           rowsPerPage={rowsPerPage}

@@ -9,5 +9,5 @@ dotenv.config();
 //Connect database
 connectDB();
 
-// run every minute
-setInterval(runBot, 60000);
+// run bot
+runBot();

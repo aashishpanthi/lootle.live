@@ -16,20 +16,10 @@ const fetchPrice = async (url, site, priceLocation) => {
       .text()
       .replace(/([$,₹])/g, "");
 
-    if (site == "flipkart.com") {
-      try {
-        const { data } = await axios.get(
-          "https://api.exchangerate.host/convert?from=INR&to=USD"
-        );
-
-        price = price * data.result;
-      } catch (error) {
-        console.log(error);
-      }
-    }
-
     const priceArray = `${price}`.split(".");
-    price = Number(`${priceArray[0]}.${priceArray[1].substring(0, 3)}`); //Validating the price
+    if (priceArray.length > 1) {
+      price = Number(`${priceArray[0]}.${priceArray[1].substring(0, 2)}`); //Validating the price
+    }
 
     // return current price
     return price;

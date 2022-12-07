@@ -29,7 +29,6 @@ export const getPNI = async (URL, site) => {
     }
 
     const priceArray = `${price}`.split(".");
-    console.log(priceArray);
     if (priceArray.length > 1) {
       price = Number(`${priceArray[0]}.${priceArray[1].substring(0, 2)}`); //Validating the price
     }

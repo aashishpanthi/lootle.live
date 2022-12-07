@@ -1,9 +1,8 @@
-import axios from "axios";
-import * as cheerio from "cheerio";
+import fetchPuppeteer from "./fetchPuppeteer.js";
 
 const fetchPrice = async (url, priceLocation) => {
   try {
-    const returnedPrice = await fetchPuppeteer(URL, priceLocation);
+    const returnedPrice = await fetchPuppeteer(url, priceLocation);
 
     let price = returnedPrice.replace(/([$,₹A-Za-z])/g, "").trim(); //Removing all the special characters
 

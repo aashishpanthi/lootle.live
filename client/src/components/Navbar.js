@@ -5,6 +5,7 @@ import { useCallback } from "react";
 import { useSignOut } from "@nhost/react";
 import { useNavigate } from "react-router-dom";
 import { useAuthenticationStatus } from "@nhost/react";
+import GoogleIcon from "@mui/icons-material/Google";
 
 const Navbar = ({ nhost }) => {
   const { isAuthenticated } = useAuthenticationStatus();
@@ -32,6 +33,11 @@ const Navbar = ({ nhost }) => {
         </Button>
       ) : (
         <Button variant="outlined" color="primary" onClick={handleGoogleSignIn}>
+          <GoogleIcon
+            sx={{
+              mr: 1,
+            }}
+          />{" "}
           Login
         </Button>
       )}

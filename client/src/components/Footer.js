@@ -61,9 +61,7 @@ const Footer = () => {
               <a href="https://linkedin.com/in/aashishpanthi">Contact</a>
             </li>
             <li>
-              <a href="https://blog.aashish-panthi.com.np/introducing-lootle">
-                About us
-              </a>
+              <a href="#">About us</a>
             </li>
             <li>
               <a href="mailto:mail@aashishpanthi.info.np">Support</a>

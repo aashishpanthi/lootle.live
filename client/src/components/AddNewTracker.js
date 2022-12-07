@@ -104,11 +104,19 @@ const AddNewTracker = ({ className, toast }) => {
 
         setfetchedPrice(price);
 
+        console.log(data);
+
         setDetails({ ...details, site, type, name, image, currency });
         if (currency === "USD") {
           setcurrency("$");
         } else if (currency === "INR") {
           setcurrency("₹");
+        } else if (currency === "EUR") {
+          setcurrency("€");
+        } else if (currency === "NPR") {
+          setcurrency("रु");
+        } else if (currency === "GBP") {
+          setcurrency("£");
         }
 
         setIsURLSupported(true);

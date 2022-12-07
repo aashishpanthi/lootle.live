@@ -1,33 +1,22 @@
-import axios from "axios";
-import * as cheerio from "cheerio";
+import { fetchCheerio } from "./fetchCheerio.js";
 
 export const getPNI = async (URL, site) => {
   const { priceLocation, nameLocation, imageLocation, type } = site;
 
   try {
-    const { data } = await axios.get(URL, {
-      headers: {
-        Accept: "application/json",
-        "User-Agent": "axios 0.21.1",
-      },
-    });
+    const {
+      name,
+      price: returnedPrice,
+      image,
+    } = await fetchCheerio(
+      URL,
+      priceLocation,
+      nameLocation,
+      imageLocation,
+      type
+    );
 
-    const $ = cheerio.load(data);
-    let image;
-
-    let name = $(nameLocation)
-      .text()
-      .trim()
-      .replace(/(<([^>]+)>)/gi, "");
-
-    let price = $(priceLocation)
-      .text()
-      .replace(/([$,₹])/g, "");
-
-    if (type === "product") {
-      image = $(imageLocation).attr("src");
-    }
-
+    let price = returnedPrice.replace(/([$,₹A-Za-z])/g, "").trim(); //Removing all the special characters
     const priceArray = `${price}`.split(".");
     if (priceArray.length > 1) {
       price = Number(`${priceArray[0]}.${priceArray[1].substring(0, 2)}`); //Validating the price

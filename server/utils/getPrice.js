@@ -20,24 +20,18 @@ export const getPNI = async (URL, site) => {
       .trim()
       .replace(/(<([^>]+)>)/gi, "");
 
-    console.log(name);
-
     let price = $(priceLocation)
       .text()
       .replace(/([$,₹])/g, "");
 
     if (type === "product") {
       image = $(imageLocation).attr("src");
-
-      console.log(image);
     }
-
-    console.log(price);
 
     const priceArray = `${price}`.split(".");
     console.log(priceArray);
     if (priceArray.length > 1) {
-      price = Number(`${priceArray[0]}.${priceArray[1].substring(0, 3)}`); //Validating the price
+      price = Number(`${priceArray[0]}.${priceArray[1].substring(0, 2)}`); //Validating the price
     }
 
     return { price, name, image };

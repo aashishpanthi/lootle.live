@@ -49,18 +49,30 @@ const AddNewTracker = ({ className, toast }) => {
     if (isURLSupported) {
       setAllSubmitLoading(true);
 
+      console.log(details);
+
       //check the demand price and validate
-      if (details.demandPrice < 1 || details.demandPrice > details.price) {
+      if (details.demandPrice < 1) {
         //Notify user about their wrong price input
         alert("Please enter the valid amount");
         setAllSubmitLoading(false);
+      } else if (details.demandPrice >= fetchedPrice) {
+        alert("Please enter the amount less than the current price");
+        setAllSubmitLoading(false);
       } else {
         try {
-          //save the data
-          const { data } = await axios.post(`/api/tracks`, {
-            ...details,
+          const dataToSave = {
             user: user.email,
-          });
+            demandPrice: Number(details.demandPrice),
+            image: details.image ? details.image : null,
+            name: details.name,
+            site: details.site,
+            type: details.type,
+            url: details.url,
+          };
+
+          //save the data
+          await axios.post(`/api/tracks`, dataToSave);
 
           alert(
             `You will be notified via email when price of your ${
@@ -92,7 +104,7 @@ const AddNewTracker = ({ className, toast }) => {
 
         setfetchedPrice(price);
 
-        setDetails({ ...details, site, type, name, image });
+        setDetails({ ...details, site, type, name, image, currency });
         if (currency === "USD") {
           setcurrency("$");
         } else if (currency === "INR") {
@@ -162,7 +174,10 @@ const AddNewTracker = ({ className, toast }) => {
                 sx={{ mt: 2 }}
               >
                 <strong>Current price: </strong>
-                {currency + fetchedPrice}
+                {new Intl.NumberFormat("en-US", {
+                  style: "currency",
+                  currency: details?.currency,
+                }).format(fetchedPrice)}
               </Typography>
               <Stack
                 direction="row"

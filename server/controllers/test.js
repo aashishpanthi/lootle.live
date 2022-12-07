@@ -4,8 +4,6 @@ import { getPNI } from "../utils/getPrice.js";
 
 // Get a specific Track by id
 export const testURL = async (req, res, next) => {
-  console.log(req.body.url);
-
   const { value: url, error } = Joi.string().required().validate(req.body.url);
   if (error) return res.status(400).json({ error: error.details, url });
 
@@ -39,10 +37,12 @@ export const testURL = async (req, res, next) => {
       price,
       name,
       image,
+      currency: site.currency,
     };
 
     res.status(200).json(resObject);
   } catch (error) {
+    console.log(error);
     res.status(400).json({ message: "Request failed", error: error });
   }
 };

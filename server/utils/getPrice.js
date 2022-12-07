@@ -5,7 +5,6 @@ export const getPNI = async (URL, site) => {
   const { priceLocation, nameLocation, imageLocation, type } = site;
 
   try {
-    console.log("Hi");
     const { data } = await axios.get(URL, {
       headers: {
         Accept: "application/json",
@@ -27,26 +26,19 @@ export const getPNI = async (URL, site) => {
       .text()
       .replace(/([$,₹])/g, "");
 
-    if (site.name == "flipkart.com") {
-      try {
-        const { data } = await axios.get(
-          "https://api.exchangerate.host/convert?from=INR&to=USD"
-        );
-
-        price = price * data.result;
-      } catch (error) {
-        console.log(error);
-      }
-    }
-
     if (type === "product") {
       image = $(imageLocation).attr("src");
 
       console.log(image);
     }
 
+    console.log(price);
+
     const priceArray = `${price}`.split(".");
-    price = Number(`${priceArray[0]}.${priceArray[1].substring(0, 3)}`); //Validating the price
+    console.log(priceArray);
+    if (priceArray.length > 1) {
+      price = Number(`${priceArray[0]}.${priceArray[1].substring(0, 3)}`); //Validating the price
+    }
 
     return { price, name, image };
   } catch (error) {

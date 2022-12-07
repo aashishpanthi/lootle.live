@@ -32,6 +32,7 @@ const AddNewTracker = ({ className, toast }) => {
   });
 
   const [fetchedPrice, setfetchedPrice] = useState(0);
+  const [currency, setcurrency] = useState(null);
 
   const handleDetails = (e) => {
     const { name, value } = e.target;
@@ -62,7 +63,9 @@ const AddNewTracker = ({ className, toast }) => {
           });
 
           alert(
-            `You will be notified via email when price of your ${details.type} drops below $${details.demandPrice}`
+            `You will be notified via email when price of your ${
+              details.type
+            } drops below ${currency + details.demandPrice}`
           );
 
           toast({
@@ -85,11 +88,17 @@ const AddNewTracker = ({ className, toast }) => {
           url: details.url,
         });
 
-        const { type, site, name, image, price } = data;
+        const { type, site, name, image, price, currency } = data;
 
         setfetchedPrice(price);
 
         setDetails({ ...details, site, type, name, image });
+        if (currency === "USD") {
+          setcurrency("$");
+        } else if (currency === "INR") {
+          setcurrency("₹");
+        }
+
         setIsURLSupported(true);
       } catch (error) {
         alert(error?.response.data.message);
@@ -152,7 +161,8 @@ const AddNewTracker = ({ className, toast }) => {
                 color="Highlight"
                 sx={{ mt: 2 }}
               >
-                <strong>Current price: </strong>${fetchedPrice}
+                <strong>Current price: </strong>
+                {currency + fetchedPrice}
               </Typography>
               <Stack
                 direction="row"
@@ -171,7 +181,9 @@ const AddNewTracker = ({ className, toast }) => {
                     value={details.demandPrice}
                     onChange={handleDetails}
                     startAdornment={
-                      <InputAdornment position="start">$</InputAdornment>
+                      <InputAdornment position="start">
+                        {currency}
+                      </InputAdornment>
                     }
                     label="Amount below which you will buy"
                   />

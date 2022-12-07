@@ -21,7 +21,7 @@ function PreviewWindow({ item }) {
     datasets: [
       {
         label: `Price`,
-        data: history.map((h) => h.price),
+        data: history?.map((h) => h.price),
         pointBackgroundColor: "royalblue",
         borderColor: "gray",
         pointHoverBackgroundColor: "blue",
@@ -98,7 +98,7 @@ function PreviewWindow({ item }) {
               {new Intl.NumberFormat("en-US", {
                 style: "currency",
                 currency: currency || "USD",
-              }).format(history.pop().price)}
+              }).format(history.pop()?.price)}
             </Typography>
           )}
 

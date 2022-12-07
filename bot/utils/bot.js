@@ -19,7 +19,7 @@ const runBot = async () => {
       const { priceLocation } = sites.filter((s) => s.name === site)[0];
 
       try {
-        const price = await getPrice(url, site, priceLocation);
+        const price = await getPrice(url, priceLocation);
 
         const newHistory = {
           price,

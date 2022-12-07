@@ -1,20 +1,11 @@
 import axios from "axios";
 import * as cheerio from "cheerio";
 
-const fetchPrice = async (url, site, priceLocation) => {
+const fetchPrice = async (url, priceLocation) => {
   try {
-    const { data } = await axios.get(url, {
-      headers: {
-        Accept: "application/json",
-        "User-Agent": "axios 0.21.1",
-      },
-    });
+    const returnedPrice = await fetchPuppeteer(URL, priceLocation);
 
-    const $ = cheerio.load(data);
-
-    let price = $(priceLocation)
-      .text()
-      .replace(/([$,₹])/g, "");
+    let price = returnedPrice.replace(/([$,₹A-Za-z])/g, "").trim(); //Removing all the special characters
 
     const priceArray = `${price}`.split(".");
     if (priceArray.length > 1) {

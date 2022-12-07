@@ -25,6 +25,8 @@ export const testURL = async (req, res, next) => {
     //test url
     const { name, price, image } = await getPNI(url, site);
 
+    console.log(name, price, image);
+
     if (!price || !name) {
       return res
         .status(400)

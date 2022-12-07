@@ -1,20 +1,27 @@
 import { fetchCheerio } from "./fetchCheerio.js";
+import fetchPuppeteer from "./fetchPuppeteer.js";
 
 export const getPNI = async (URL, site) => {
   const { priceLocation, nameLocation, imageLocation, type } = site;
 
   try {
+    // const {
+    //   name,
+    //   price: returnedPrice,
+    //   image,
+    // } = await fetchCheerio(
+    //   URL,
+    //   priceLocation,
+    //   nameLocation,
+    //   imageLocation,
+    //   type
+    // );
+
     const {
       name,
       price: returnedPrice,
       image,
-    } = await fetchCheerio(
-      URL,
-      priceLocation,
-      nameLocation,
-      imageLocation,
-      type
-    );
+    } = await fetchPuppeteer(URL, priceLocation, nameLocation, imageLocation);
 
     let price = returnedPrice.replace(/([$,₹A-Za-z])/g, "").trim(); //Removing all the special characters
     const priceArray = `${price}`.split(".");

@@ -2,31 +2,50 @@ import { fetchCheerio } from "./fetchCheerio.js";
 import fetchPuppeteer from "./fetchPuppeteer.js";
 
 export const getPNI = async (URL, site) => {
-  const { priceLocation, nameLocation, imageLocation, name: siteName } = site;
+  const {
+    priceLocation,
+    nameLocation,
+    imageLocation,
+    name: siteName,
+    type,
+  } = site;
 
   try {
-    // const {
-    //   name,
-    //   price: returnedPrice,
-    //   image,
-    // } = await fetchCheerio(
-    //   URL,
-    //   priceLocation,
-    //   nameLocation,
-    //   imageLocation,
-    //   type
-    // );
+    let price, name, image;
+    if (
+      type == "stock" ||
+      siteName == "amazon.com" ||
+      siteName == "flipkart.com"
+    ) {
+      const {
+        name: returnedName,
+        price: returnedPrice,
+        image: returnedImage,
+      } = await fetchCheerio(
+        URL,
+        priceLocation,
+        nameLocation,
+        imageLocation,
+        type
+      );
 
-    const {
-      name,
-      price: returnedPrice,
-      image,
-    } = await fetchPuppeteer(URL, priceLocation, nameLocation, imageLocation);
+      name = returnedName.replace(/(\r\n|\n|\r)/gm, "").trim(); //Removing all the special characters
+      price = returnedPrice;
+      image = returnedImage;
+    } else {
+      const {
+        name: returnedName,
+        price: returnedPrice,
+        image: returnedImage,
+      } = await fetchPuppeteer(URL, priceLocation, nameLocation, imageLocation);
 
-    let price = returnedPrice;
+      price = returnedPrice;
+      name = returnedName.replace(/(\r\n|\n|\r)/gm, "").trim(); //Removing all the special characters
+      image = returnedImage;
+    }
 
     if (siteName === "daraz.com.np") {
-      price = returnedPrice.substring(4);
+      price = price.substring(4);
     }
 
     price = price.replace(/([$,₹A-Za-z])/g, "").trim(); //Removing all the special characters

@@ -1,4 +1,12 @@
-const EmailTemplate = (name, link, currentPrice, demandPrice, image, type) => {
+const EmailTemplate = (
+  name,
+  link,
+  currentPrice,
+  demandPrice,
+  image,
+  type,
+  currency
+) => {
   return `
     <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
     <html xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office" style="width:100%;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;padding:0;Margin:0">
@@ -154,7 +162,7 @@ const EmailTemplate = (name, link, currentPrice, demandPrice, image, type) => {
                         <td align="center" class="es-infoblock es-m-txt-c" style="padding:0;Margin:0;line-height:19px;font-size:16px;color:#FFFFFF"><h1 style="Margin:0;line-height:34px;mso-line-height-rule:exactly;font-family:Oswald, sans-serif;font-size:28px;font-style:normal;font-weight:bold;color:#ffffff">${name}</h1></td>
                         </tr>
                         <tr style="border-collapse:collapse">
-                        <td align="center" class="es-infoblock es-m-txt-c" style="padding:0;Margin:0;padding-top:20px;padding-bottom:20px;line-height:19px;font-size:16px;color:#FFFFFF"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:'Open Sans', sans-serif;line-height:19px;color:#FFFFFF;font-size:16px"><strong>Current price:</strong>&nbsp;${currentPrice}<br><strong>Your entered price:</strong>&nbsp;${demandPrice}</p></td>
+                        <td align="center" class="es-infoblock es-m-txt-c" style="padding:0;Margin:0;padding-top:20px;padding-bottom:20px;line-height:19px;font-size:16px;color:#FFFFFF"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:'Open Sans', sans-serif;line-height:19px;color:#FFFFFF;font-size:16px"><strong>Current price:</strong>&nbsp;${currency}${currentPrice}<br><strong>Your entered price:</strong>&nbsp;${currency}${demandPrice}</p></td>
                         </tr>
                         <tr style="border-collapse:collapse">
                         <td align="center" class="es-infoblock" style="padding:0;Margin:0;line-height:19px;font-size:16px;color:#FFFFFF"><!--[if mso]><a href="https://lootle.live" target="_blank" hidden>

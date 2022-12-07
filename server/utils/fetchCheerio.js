@@ -26,7 +26,8 @@ export const fetchCheerio = async (
 
     let price = $(priceLocation)
       .text()
-      .replace(/([$,₹£A-Za-z])/g, "");
+      .replace(/([$,₹£A-Za-z])/g, "")
+      .trim();
 
     if (type === "product") {
       image = $(imageLocation).attr("src");

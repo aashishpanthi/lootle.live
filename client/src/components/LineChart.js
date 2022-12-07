@@ -1,7 +1,7 @@
 import { Line } from "react-chartjs-2";
 import { Chart as ChartJS } from "chart.js/auto";
 
-const LineChart = ({ data }) => {
+const LineChart = ({ data, currency }) => {
   let delayed;
   return (
     <Line
@@ -31,12 +31,16 @@ const LineChart = ({ data }) => {
         scales: {
           y: {
             ticks: {
-              callback: (value) => `$${value}`,
+              callback: (value) =>
+                new Intl.NumberFormat("en-US", {
+                  style: "currency",
+                  currency: currency || "USD",
+                }).format(value),
             },
           },
           x: {
             ticks: {
-              callback: (value) => `${data.labels[value]}`,
+              callback: (value) => `${data.labels[value].substring(0, 5)}`,
             },
           },
         },

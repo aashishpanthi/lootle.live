@@ -136,7 +136,7 @@ const AllTracks = ({ items, toast, setItems }) => {
                       hover
                       role="checkbox"
                       tabIndex={-1}
-                      key={row.name}
+                      key={row.name + rowIndex}
                     >
                       {columns.map((column) => {
                         const value = row[column.id];

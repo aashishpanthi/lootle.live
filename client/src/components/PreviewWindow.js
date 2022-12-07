@@ -1,9 +1,12 @@
 import { Divider, Stack, Typography } from "@mui/material";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import LineChart from "./LineChart";
+import axios from "axios";
 
 function PreviewWindow({ item }) {
   const { name, site, image, url, type, history, demandPrice, informed } = item;
+
+  const [currency, setCurrency] = useState("USD");
 
   const [priceHistory, setPriceHistory] = useState({
     labels: history.map((h) =>
@@ -17,7 +20,7 @@ function PreviewWindow({ item }) {
     ),
     datasets: [
       {
-        label: "Price ($)",
+        label: `Price`,
         data: history.map((h) => h.price),
         pointBackgroundColor: "royalblue",
         borderColor: "gray",
@@ -25,6 +28,20 @@ function PreviewWindow({ item }) {
       },
     ],
   });
+
+  const getCurrencyDetails = async () => {
+    try {
+      const { data } = await axios.get(`/api/sites/${site}`);
+
+      setCurrency(data.currency);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getCurrencyDetails();
+  }, []);
 
   return (
     <div className="preview-window">
@@ -68,8 +85,22 @@ function PreviewWindow({ item }) {
           </Typography>
 
           <Typography component="h6" variant="body1" color="InfoText">
-            <strong>Your budget: </strong>${demandPrice}
+            <strong>Your budget : </strong>
+            {new Intl.NumberFormat("en-US", {
+              style: "currency",
+              currency: currency || "USD",
+            }).format(demandPrice)}
           </Typography>
+
+          {!informed && (
+            <Typography component="h6" variant="body1" color="InfoText">
+              <strong>Current price: </strong>
+              {new Intl.NumberFormat("en-US", {
+                style: "currency",
+                currency: currency || "USD",
+              }).format(history.pop().price)}
+            </Typography>
+          )}
 
           <Typography component="h6" variant="body1">
             <strong>Notified: </strong> {informed ? `Yes` : `No`}
@@ -95,7 +126,7 @@ function PreviewWindow({ item }) {
       </Divider>
 
       <div style={{ width: "100%", marginTop: "20px" }}>
-        <LineChart data={priceHistory} />
+        <LineChart data={priceHistory} currency={currency} />
       </div>
     </div>
   );

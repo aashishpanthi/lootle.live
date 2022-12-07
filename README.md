@@ -21,3 +21,10 @@ Oh, we haven't discussed much on the functions of the website 😅. It checks th
 
 1. [GitHub repo](https://github.com/aashishpanthi/lootle.live)
 2. [Website](https://lootle.live)
+
+# Currently supported sites:
+
+1. [Flipkart.com](https://flipkart.com) for available products only
+2. [Amazon.com](https://amazon.com) for available products only
+3. [cnbc.com](https://cnbc.com) for stock price
+4. [daraz.com.np](https://daraz.com.np) for available products only

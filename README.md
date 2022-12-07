@@ -26,5 +26,7 @@ Oh, we haven't discussed much on the functions of the website 😅. It checks th
 
 1. [Flipkart.com](https://flipkart.com) for available products only
 2. [Amazon.com](https://amazon.com) for available products only
-3. [cnbc.com](https://cnbc.com) for stock price
-4. [daraz.com.np](https://daraz.com.np) for available products only
+3. [Amazon.co.uk](https://amazon.co.uk) for available products only
+4. [Amazon.in](https://amazon.in) for available products only
+5. [cnbc.com](https://cnbc.com) for stock price
+6. [daraz.com.np](https://daraz.com.np) for available products only

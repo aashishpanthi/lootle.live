@@ -9,8 +9,7 @@
 Oh, we haven't discussed much on the functions of the website 😅. It checks the price of the product specified. Not only it checks the price, it extracts the name and information of the product from the website. It gathers information on a regular interval of fiveteen minutes and stores inside of the database. If the current price is found to be less than the specified price by the user then, the user will be updated with an email. And the user can also check the history of the price fluctuation through the nice little dashboard.
 
 ## Video overview
-
-%[https://youtu.be/R_GvQFZ8CIc]
+[![IMAGE ALT TEXT HERE](https://github.com/aashishpanthi/lootle.live/blob/main/client/public/static/video-placeholder.jpg)](https://www.youtube.com/watch?v=R_GvQFZ8CIc)
 
 ### Tech stack 👩‍💻
 

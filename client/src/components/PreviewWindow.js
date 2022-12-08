@@ -1,12 +1,58 @@
-import { Divider, Stack, Typography } from "@mui/material";
+import { Divider, MenuItem, Stack, TextField, Typography } from "@mui/material";
 import { useState, useEffect } from "react";
 import LineChart from "./LineChart";
 import axios from "axios";
+import { Box } from "@mui/system";
 
 function PreviewWindow({ item }) {
   const { name, site, image, url, type, history, demandPrice, informed } = item;
 
   const [currency, setCurrency] = useState("USD");
+  const [timeRange, setTimeRange] = useState("all_time");
+
+  const handleTimeRangeChange = (e) => {
+    setTimeRange(e.target.value);
+
+    let newHistory = history;
+
+    switch (e.target.value) {
+      case "24_hours":
+        newHistory = history.filter((h) => {
+          const date = new Date(h.date);
+          const now = new Date();
+          const diff = now - date;
+          return diff < 24 * 60 * 60 * 1000;
+        });
+        break;
+
+      case "all_time":
+        newHistory = history;
+        break;
+      default:
+        newHistory = history;
+        break;
+    }
+    setPriceHistory({
+      labels: newHistory.map((h) =>
+        new Date(h.date).toLocaleString("en-US", {
+          month: "short",
+          day: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+          hour12: false,
+        })
+      ),
+      datasets: [
+        {
+          label: `Price`,
+          data: history?.map((h) => h.price),
+          pointBackgroundColor: "royalblue",
+          borderColor: "gray",
+          pointHoverBackgroundColor: "blue",
+        },
+      ],
+    });
+  };
 
   const [priceHistory, setPriceHistory] = useState({
     labels: history.map((h) =>
@@ -119,11 +165,39 @@ function PreviewWindow({ item }) {
         </div>
       </Stack>
 
-      <Divider>
+      <Box
+        sx={{
+          width: "100%",
+          display: "flex",
+          margin: "20px 15px 0 10px",
+          alignItems: "center",
+          justifyContent: "space-around",
+        }}
+      >
         <Typography component="h2" variant="h4">
           History of price
         </Typography>
-      </Divider>
+        <Divider
+          sx={{
+            flex: 1,
+            flexShrink: 1,
+            mx: 2,
+          }}
+        ></Divider>
+        <TextField
+          id="select-time"
+          select
+          label="Time"
+          value={timeRange}
+          onChange={handleTimeRangeChange}
+          sx={{
+            width: "150px",
+          }}
+        >
+          <MenuItem value="24_hours">24 hours</MenuItem>
+          <MenuItem value="all_time">Lifetime</MenuItem>
+        </TextField>
+      </Box>
 
       <div style={{ width: "100%", marginTop: "20px" }}>
         <LineChart data={priceHistory} currency={currency} />

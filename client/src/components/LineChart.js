@@ -23,7 +23,7 @@ const LineChart = ({ data, currency }) => {
               context.mode === "default" &&
               !delayed
             ) {
-              delay = context.dataIndex * 300 + context.datasetIndex * 100;
+              delay = context.dataIndex * 10 + context.datasetIndex * 5;
             }
             return delay;
           },

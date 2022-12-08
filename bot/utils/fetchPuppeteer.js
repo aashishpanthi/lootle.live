@@ -3,7 +3,7 @@ import puppeteer from "puppeteer";
 export default async function fetchPuppeteer(url, priceLocation) {
   try {
     const browser = await puppeteer.launch({
-      headless: false,
+      headless: true,
       args: ["--no-sandbox"],
       windowSize: {
         width: 1920,

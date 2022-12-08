@@ -1,13 +1,28 @@
 import fetchPuppeteer from "./fetchPuppeteer.js";
+import { fetchCheerio } from "./fetchCheerio.js";
 
 const fetchPrice = async (url, priceLocation, siteName) => {
   try {
-    const returnedPrice = await fetchPuppeteer(url, priceLocation);
+    let price;
+    if (
+      siteName == "cnbc.com" ||
+      siteName == "amazon.com" ||
+      siteName == "flipkart.com" ||
+      siteName == "amazon.in" ||
+      siteName == "amazon.co.uk" ||
+      siteName == "walmart.com"
+    ) {
+      const returnedPrice = await fetchCheerio(url, priceLocation);
 
-    let price = returnedPrice;
+      price = returnedPrice;
+    } else {
+      const returnedPrice = await fetchPuppeteer(url, priceLocation);
+
+      price = returnedPrice;
+    }
 
     if (siteName === "daraz.com.np") {
-      price = returnedPrice.substring(4);
+      price = price.substring(4);
     }
 
     price = price.replace(/([$,£₹A-Za-z])/g, "").trim(); //Removing all the special characters

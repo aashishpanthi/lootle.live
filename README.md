@@ -30,4 +30,3 @@ Oh, we haven't discussed much on the functions of the website 😅. It checks th
 4. [Amazon.in](https://amazon.in) for available products only
 5. [cnbc.com](https://cnbc.com) for stock price
 6. [daraz.com.np](https://daraz.com.np) for available products only
-7. [walmart.com](https://walmart.com) for available products only

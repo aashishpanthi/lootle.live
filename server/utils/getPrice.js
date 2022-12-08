@@ -17,7 +17,8 @@ export const getPNI = async (URL, site) => {
       siteName == "amazon.com" ||
       siteName == "flipkart.com" ||
       siteName == "amazon.in" ||
-      siteName == "amazon.co.uk"
+      siteName == "amazon.co.uk" ||
+      siteName == "walmart.com"
     ) {
       const {
         name: returnedName,

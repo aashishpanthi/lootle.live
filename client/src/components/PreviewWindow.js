@@ -1,14 +1,22 @@
-import { Divider, MenuItem, Stack, TextField, Typography } from "@mui/material";
+import {
+  CircularProgress,
+  Divider,
+  MenuItem,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { useState, useEffect } from "react";
 import LineChart from "./LineChart";
 import axios from "axios";
 import { Box } from "@mui/system";
 
-function PreviewWindow({ item }) {
-  const { name, site, image, url, type, history, demandPrice, informed } = item;
+function PreviewWindow({ item: id }) {
+  const [item, setItem] = useState(null);
 
+  const [history, setHistory] = useState([]);
   const [currency, setCurrency] = useState("USD");
-  const [timeRange, setTimeRange] = useState("all_time");
+  const [timeRange, setTimeRange] = useState("3_hours");
 
   const handleTimeRangeChange = (e) => {
     setTimeRange(e.target.value);
@@ -16,6 +24,15 @@ function PreviewWindow({ item }) {
     let newHistory = history;
 
     switch (e.target.value) {
+      case "3_hours":
+        newHistory = history.filter((h) => {
+          const date = new Date(h.date);
+          const now = new Date();
+          const diff = now - date;
+          return diff < 3 * 60 * 60 * 1000;
+        });
+        break;
+
       case "24_hours":
         newHistory = history.filter((h) => {
           const date = new Date(h.date);
@@ -75,19 +92,50 @@ function PreviewWindow({ item }) {
     ],
   });
 
-  const getCurrencyDetails = async () => {
+  const getCurrencyDetails = async (site) => {
     try {
       const { data } = await axios.get(`/api/sites/${site}`);
-
       setCurrency(data.currency);
+
+      handleTimeRangeChange({ target: { value: "3_hours" } });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const getTrackingDetail = async () => {
+    console.log("getTrackingDetail");
+    try {
+      const { data } = await axios.get(`/api/tracks/${id}`);
+      setItem(data);
+      setHistory(data.history);
+
+      await getCurrencyDetails(data.site);
     } catch (err) {
       console.log(err);
     }
   };
 
   useEffect(() => {
-    getCurrencyDetails();
+    getTrackingDetail();
   }, []);
+
+  if (!item) {
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          minHeight: "50vh",
+        }}
+      >
+        <CircularProgress />
+      </Box>
+    );
+  }
+
+  const { name, image, demandPrice, site, informed, type, url } = item;
 
   return (
     <div className="preview-window">
@@ -144,7 +192,7 @@ function PreviewWindow({ item }) {
               {new Intl.NumberFormat("en-US", {
                 style: "currency",
                 currency: currency || "USD",
-              }).format(history.pop()?.price)}
+              }).format(history[history.length - 1]?.price)}
             </Typography>
           )}
 
@@ -194,7 +242,8 @@ function PreviewWindow({ item }) {
             width: "150px",
           }}
         >
-          <MenuItem value="24_hours">24 hours</MenuItem>
+          <MenuItem value="3_hours">Last 3 hours</MenuItem>
+          <MenuItem value="24_hours">Last 24 hours</MenuItem>
           <MenuItem value="all_time">Lifetime</MenuItem>
         </TextField>
       </Box>

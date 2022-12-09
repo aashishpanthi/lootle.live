@@ -104,7 +104,7 @@ const AllTracks = ({ items, toast, setItems }) => {
         openModal={openModal}
         handleCloseModal={handleCloseModal}
       >
-        <PreviewWindow item={previewItem} />
+        <PreviewWindow item={previewItem?._id} />
       </PromptModal>
       <Paper
         sx={{ maxWidth: "1000px", padding: "10px 20px", overflow: "hidden" }}

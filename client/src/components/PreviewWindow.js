@@ -104,7 +104,6 @@ function PreviewWindow({ item: id }) {
   };
 
   const getTrackingDetail = async () => {
-    console.log("getTrackingDetail");
     try {
       const { data } = await axios.get(`/api/tracks/${id}`);
       setItem(data);
@@ -118,7 +117,7 @@ function PreviewWindow({ item: id }) {
 
   useEffect(() => {
     getTrackingDetail();
-  }, []);
+  }, [history]);
 
   if (!item) {
     return (

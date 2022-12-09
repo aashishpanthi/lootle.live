@@ -16,7 +16,7 @@ function PreviewWindow({ item: id }) {
 
   const [history, setHistory] = useState([]);
   const [currency, setCurrency] = useState("USD");
-  const [timeRange, setTimeRange] = useState("3_hours");
+  const [timeRange, setTimeRange] = useState("1_hours");
 
   const handleTimeRangeChange = (e) => {
     setTimeRange(e.target.value);
@@ -24,7 +24,7 @@ function PreviewWindow({ item: id }) {
     let newHistory = history;
 
     switch (e.target.value) {
-      case "3_hours":
+      case "1_hour":
         newHistory = history.filter((h) => {
           const date = new Date(h.date);
           const now = new Date();
@@ -97,7 +97,7 @@ function PreviewWindow({ item: id }) {
       const { data } = await axios.get(`/api/sites/${site}`);
       setCurrency(data.currency);
 
-      handleTimeRangeChange({ target: { value: "3_hours" } });
+      handleTimeRangeChange({ target: { value: "1_hour" } });
     } catch (err) {
       console.log(err);
     }
@@ -110,6 +110,27 @@ function PreviewWindow({ item: id }) {
       setHistory(data.history);
 
       await getCurrencyDetails(data.site);
+
+      setPriceHistory({
+        labels: data.history.map((h) =>
+          new Date(h.date).toLocaleString("en-US", {
+            month: "short",
+            day: "numeric",
+            hour: "2-digit",
+            minute: "2-digit",
+            hour12: false,
+          })
+        ),
+        datasets: [
+          {
+            label: `Price`,
+            data: data.history?.map((h) => h.price),
+            pointBackgroundColor: "royalblue",
+            borderColor: "gray",
+            pointHoverBackgroundColor: "blue",
+          },
+        ],
+      });
     } catch (err) {
       console.log(err);
     }
@@ -117,7 +138,7 @@ function PreviewWindow({ item: id }) {
 
   useEffect(() => {
     getTrackingDetail();
-  }, [history]);
+  }, []);
 
   if (!item) {
     return (
@@ -241,7 +262,7 @@ function PreviewWindow({ item: id }) {
             width: "150px",
           }}
         >
-          <MenuItem value="3_hours">Last 3 hours</MenuItem>
+          <MenuItem value="1_hour">Last 1 hour</MenuItem>
           <MenuItem value="24_hours">Last 24 hours</MenuItem>
           <MenuItem value="all_time">Lifetime</MenuItem>
         </TextField>

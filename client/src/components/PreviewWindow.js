@@ -16,7 +16,7 @@ function PreviewWindow({ item: id }) {
 
   const [history, setHistory] = useState([]);
   const [currency, setCurrency] = useState("USD");
-  const [timeRange, setTimeRange] = useState("1_hours");
+  const [timeRange, setTimeRange] = useState("1_hour");
 
   const handleTimeRangeChange = (e) => {
     setTimeRange(e.target.value);
@@ -62,7 +62,7 @@ function PreviewWindow({ item: id }) {
       datasets: [
         {
           label: `Price`,
-          data: history?.map((h) => h.price),
+          data: newHistory?.map((h) => h.price),
           pointBackgroundColor: "royalblue",
           borderColor: "gray",
           pointHoverBackgroundColor: "blue",
@@ -111,8 +111,15 @@ function PreviewWindow({ item: id }) {
 
       await getCurrencyDetails(data.site);
 
+      const newHistory = data.history.filter((h) => {
+        const date = new Date(h.date);
+        const now = new Date();
+        const diff = now - date;
+        return diff < 60 * 60 * 1000;
+      });
+
       setPriceHistory({
-        labels: data.history.map((h) =>
+        labels: newHistory.map((h) =>
           new Date(h.date).toLocaleString("en-US", {
             month: "short",
             day: "numeric",
@@ -124,7 +131,7 @@ function PreviewWindow({ item: id }) {
         datasets: [
           {
             label: `Price`,
-            data: data.history?.map((h) => h.price),
+            data: newHistory?.map((h) => h.price),
             pointBackgroundColor: "royalblue",
             borderColor: "gray",
             pointHoverBackgroundColor: "blue",

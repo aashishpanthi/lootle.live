@@ -213,7 +213,7 @@ function PreviewWindow({ item: id }) {
             }).format(demandPrice)}
           </Typography>
 
-          {!informed && (
+          {!informed && history.length > 0 && (
             <Typography component="h6" variant="body1" color="InfoText">
               <strong>Current price: </strong>
               {new Intl.NumberFormat("en-US", {

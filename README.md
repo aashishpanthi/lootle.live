@@ -20,11 +20,6 @@ Oh, we haven't discussed much on the functions of the website 😅. It checks th
 - **Puppeteer/Cheerio** -> Getting Price
 - **Nodemailer** -> To send email
 
-# Important links 🔗
-
-1. [GitHub repo](https://github.com/aashishpanthi/lootle.live)
-2. [Website](https://lootle.live)
-
 # Currently supported sites:
 
 1. [Flipkart.com](https://flipkart.com) for available products only
@@ -33,3 +28,5 @@ Oh, we haven't discussed much on the functions of the website 😅. It checks th
 4. [Amazon.in](https://amazon.in) for available products only
 5. [cnbc.com](https://cnbc.com) for stock price
 6. [daraz.com.np](https://daraz.com.np) for available products only
+
+> Want a full guide on building the project? I've covered it here: https://blog.aashish-panthi.com.np/creating-a-price-tracker-in-mern

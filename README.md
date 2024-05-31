@@ -38,7 +38,7 @@ To get started, clone the project repository to your local machine:
 git clone https://github.com/aashishpanthi/lootle.live.git
 ```
 ### Install Dependencies
-Navigate to the project directory and install the required dependencies for both the client and server.
+Navigate to the project directory and install the required dependencies for all client, server, and bot.
 
 **Client (Reactjs)**
 ```bash
@@ -52,10 +52,16 @@ cd ../server
 npm install
 ```
 
+**Bot**
+```bash
+cd ../bot
+npm install
+```
+
 **Set Up Environment Variables**
 Create a .env file in all directories and add the following environment variables:
 
-> For the client, the project uses Nhost to handle the authentication. So you need to set up a google login with nhost. This will help you: https://docs.nhost.io/authentication/sign-in-with-google
+> For the client, the project uses Nhost to handle the authentication. So you need to set up a Google login with nhost. This will help you: https://docs.nhost.io/authentication/sign-in-with-google
 ```plaintext
 REACT_APP_NHOST_SUBDOMAIN= paste_from_nhost_dashboard
 REACT_APP_NHOST_REGION = paste_from_nhost_dashboard
